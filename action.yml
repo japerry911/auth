@@ -63,7 +63,7 @@ inputs:
       If set, the action will create a credentials file with the specified name
       (e.g. 'google-credentials.json').
     default: null
-    required: false
+    required: true
   export_environment_variables:
     description: |-
       If true, the action will export common environment variables which are

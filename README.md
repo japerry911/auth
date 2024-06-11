@@ -211,7 +211,12 @@ generate any tokens.
 ### Inputs: Miscellaneous
 
 The following inputs are for controlling the behavior of this GitHub Actions,
-regardless of the authentication mechanism.
+regardless of the authentication mechanism
+
+-   `create_credentials_file_name`: (Optional) If set, the action will create
+    a credentials file with the specified name (e.g. 'google-credentials.json').
+    The default is null. This is only available if "create_credentials_file"
+    was set to true.
 
 -   `project_id`: (Optional) Custom project ID to use for authentication and
     exporting into other steps. If unspecified, we will attempt to extract the
