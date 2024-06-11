@@ -80,6 +80,7 @@ export async function run(logger: Logger) {
       getInput(`audience`) || `https://iam.googleapis.com/${workloadIdentityProvider}`;
     const credentialsJSON = getInput(`credentials_json`);
     const createCredentialsFile = getBooleanInput(`create_credentials_file`);
+    const createCredentialsFileName = getInput('create_credentials_file_name');
     const exportEnvironmentVariables = getBooleanInput(`export_environment_variables`);
     const tokenFormat = getInput(`token_format`);
     const delegates = parseMultilineCSV(getInput(`delegates`));
@@ -176,7 +177,12 @@ export async function run(logger: Logger) {
       }
 
       // Create credentials file.
-      const outputFile = generateCredentialsFilename();
+      var outputFile;
+      if (createCredentialsFileName && createCredentialsFileName.endsWith(".json")) {
+        outputFile = createCredentialsFileName;
+      } else {
+        outputFile = generateCredentialsFilename();
+      }
       const outputPath = pathjoin(githubWorkspace, outputFile);
       const credentialsPath = await client.createCredentialsFile(outputPath);
       logger.info(`Created credentials file at "${credentialsPath}"`);
